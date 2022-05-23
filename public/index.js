@@ -8,7 +8,7 @@ addPost.addEventListener('submit', async (event) => {
 
   event.preventDefault();
 
-  const { postName, categoryName, img } = addPost;
+  const { postName, categoryName, img, description } = addPost;
 
   const response = await fetch('/add', {
 
@@ -24,37 +24,66 @@ addPost.addEventListener('submit', async (event) => {
 
       postName: postName.value,
 
-      categoryName: categoryName.value,
+      categoryName: categoryName.value, 
 
       img: img.value,
+
+      description: description.value
+
 
     }),
 
   });
 
-  const res = await response.json();
+  const resol = await response.json();
 
   if (response.ok) {
 
-    console.log(res);
+    console.log(resol);
 
-    btn.insertAdjacentHTML('beforeend', `
+    btn.innerHTML += `    <div  class="posts">
 
-      <div class="products">
+    <img style="width: 250px" src=${resol.newPost.img} alt="photo">
 
-        <img style="width: 250px;" src=${img.value} alt="photo">
+    <p>
 
-        <p>${postName.value} - ${categoryName.value} - ${res.name} </p>
+      ${resol.newPost.title} - ${resol.name} - ${resol.category.name} 
+       
 
-        <div data-dataid="${res.id}" class="product-inner">
+    </p>
 
-          <button data-type="delete" id="delete" class="products_delete-btn">Удалить</button>
+    <p>
+    ${resol.newPost.description}
+    </p>
 
-        </div>
+    <div data-dataid="${resol.newPost.id}" class="post-inner">
+
+      <button data-type="delete" id="delete" class="post_delete-btn">Удалить</button>
 
     </div>
 
-    `);
+
+  </div>`
+
+    // btn.insertAdjacentHTML('beforeend', `
+
+    //   <div class="products">
+
+    //     <img style="width: 250px;" src=${resol.img} alt="photo">
+
+    //     <p>${resol.title} - ${resol.description} - ${resol.name} </p>
+
+    //     <div data-dataid="${resol.id}" class="product-inner">
+
+    //       <button data-type="delete" id="delete" class="products_delete-btn">Удалить</button>
+
+    //     </div>
+
+    // </div>
+
+    // `);
+
+
 
     postName.value = '';
 

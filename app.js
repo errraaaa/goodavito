@@ -30,6 +30,8 @@ const postRouter = require('./routes/postRouter');
 
 const regRouter = require('./routes/regRouter');
 
+const reditRouter = require('./routes/reditRouter');
+
 app.use(session({
 
   secret: 'avito',
@@ -63,6 +65,8 @@ app.use('/', mainRouter);
 app.use('/', postRouter);
 
 app.use('/', regRouter);
+
+app.use('/', reditRouter);
 
 app.listen(PORT, () => {
 
